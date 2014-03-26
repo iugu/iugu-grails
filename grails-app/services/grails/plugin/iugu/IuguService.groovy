@@ -8,26 +8,26 @@ class IuguService {
     def transactional = false
 
     def create(def method, def attributes) {
-        return apiRequest("post", method, null, attributes)
+        return apiRequest("post", method, null, attributes, null)
     }
 
     def fetch(def method, def key) {
-        return apiRequest("get", method, key, null)
+        return apiRequest("get", method, key, null, null)
     }
 
     def save(def method, def key, def attributes) {
-        return apiRequest("put", method, key, attributes)
+        return apiRequest("put", method, key, attributes, null)
     }
 
     def delete(def method, def key) {
-        return apiRequest("detele", method, key, null)
+        return apiRequest("delete", method, key, null, null)
     }
 
     def search(def method, def options) {
-        return apiRequest("get", method, null, options)
+        return apiRequest("get", method, null, null, options)
     }
 
-    def apiRequest(def verb, def method, def key, def attributes) {
+    def apiRequest(def verb, def method, def key, def attributes, def options) {
         def result
 
         try {
@@ -36,21 +36,22 @@ class IuguService {
                     result = results
                 }
 
-                handler.failure = { resp ->
-                    result = resp.statusLine
+                handler.failure = { resp, results ->
+                    result = results
                 }
 
                 "${verb}"(
                     path: "/${Iugu.apiVersion}/${method}" + (key ? "/${key}" : ""),
                     headers: ["Authorization": "Basic " + new String("${Iugu.apiKey}:".encodeAsBase64())],
+                    query: options,
                     body: attributes
                 )
             }
 
-            log.info("${verb.toUppercase()}: ${Iugu.endpoint}/${Iugu.apiVersion}/${method}")
+            println("${verb.toUpperCase()}: ${Iugu.endpoint}/${Iugu.apiVersion}/${method}" + (key ? "/${key}" : "") + (attributes ? "\nBODY: ${attributes}" : "") + (result ? "\nRESULT: ${result}" : ""))
         }
         catch(Exception e) {
-            log.error("${verb.toUppercase()}: ${Iugu.endpoint}/${Iugu.apiVersion}/${method}", e)
+            log.error("${verb.toUpperCase()}: ${Iugu.endpoint}/${Iugu.apiVersion}/${method}" + (key ? "/${key}" : "") + (attributes ? "\nBODY: ${attributes}" : ""), e)
         }
         finally {
             return result

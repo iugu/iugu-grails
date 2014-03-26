@@ -61,3 +61,23 @@ class IuguCustomer {
     }
 
 }
+
+// Customer.create
+// [
+//     email: "email@email.com",
+//     name: "Nome do Cliente",
+//     notes: "Anotações Gerais"
+// ]
+
+// Customer.search
+// [
+//     limit: 5,
+//     start: 0,
+//     created_at_from: "31/12/2013",
+//     created_at_to: "31/12/2014",
+//     query: "email@email.com",
+//     updated_since: "31/12/2013",
+//     sortBy: [
+//         email: "DESC"
+//     ]
+// ]
