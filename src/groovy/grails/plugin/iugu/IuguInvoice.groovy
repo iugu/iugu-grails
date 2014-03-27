@@ -38,15 +38,26 @@ class IuguInvoice {
         return iuguService.save("invoices", key, attributes)
     }
 
-    // DELETE https://api.iugu.com/v1/invoices/ID_DA_FATURA
-    static delete(def key) {
+    // PUT https://api.iugu.com/v1/invoices/ID_DA_FATURA/cancel
+    static cancel(def key) {
         if (!key) {
             return false
         }
 
         iuguService = iuguService ?: new IuguService()
 
-        return iuguService.delete("invoices", key)
+        return iuguService.apiRequest("put", "invoices", "${key}/cancel", null, null)
+    }
+
+    // POST https://api.iugu.com/v1/invoices/ID_DA_FATURA/refund
+    static refund(def key) {
+        if (!key) {
+            return false
+        }
+
+        iuguService = iuguService ?: new IuguService()
+
+        return iuguService.apiRequest("post", "invoices", "${key}/refund", null, null)
     }
 
     static search() {
@@ -60,26 +71,43 @@ class IuguInvoice {
         return iuguService.search("invoices", options)
     }
 
-    // PUT https://api.iugu.com/v1/invoices/ID_DA_FATURA/cancel
-    static cancel(def key) {
+    // DELETE https://api.iugu.com/v1/invoices/ID_DA_FATURA
+    static delete(def key) {
         if (!key) {
             return false
         }
 
         iuguService = iuguService ?: new IuguService()
 
-        return iuguService.apiRequest("put", "invoices", "${key}/cancel", null)
-    }
-
-    // POST https://api.iugu.com/v1/invoices/ID_DA_FATURA/refund
-    static refund(def key) {
-        if (!key) {
-            return false
-        }
-
-        iuguService = iuguService ?: new IuguService()
-
-        return iuguService.apiRequest("post", "invoices", "${key}/refund", null)
+        return iuguService.delete("invoices", key)
     }
 
 }
+
+// POST https://api.iugu.com/v1/invoices
+// [
+//     email: "teste@teste.com",
+//     due_date: "30/11/2041",
+//     items: [
+//         [
+//             description: "Item Um",
+//             quantity: "1",
+//             price_cents: "1000"
+//         ]
+//     ],
+//     return_url: "", // Optional
+//     expired_url: "", // Optional
+//     notification_url: "", // Optional
+//     tax_cents: "", // Optional
+//     discount_cents: "", // Optional
+//     customer_id: "", // Optional
+//     ignore_due_email: "", // Optional
+//     subscription_id: "", // Optional
+//     credits: "", // Optional
+//     logs: [
+//         [
+//             description: "",
+//             notes: ""
+//         ]
+//     ]
+// ]

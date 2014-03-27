@@ -13,7 +13,7 @@ class IuguMarketPlace {
 
         iuguService = iuguService ?: new IuguService()
 
-        return iuguService.apiRequest("post", "marketplace", "create_account", attributes)
+        return iuguService.apiRequest("post", "marketplace", "create_account", attributes, null)
     }
 
     // POST https://api.iugu.com/v1/accounts/ID_DA_CONTA/request_verification
@@ -24,7 +24,7 @@ class IuguMarketPlace {
 
         iuguService = iuguService ?: new IuguService()
 
-        return iuguService.apiRequest("post", "accounts", "${key}/request_verification", null)
+        return iuguService.apiRequest("post", "accounts", "${key}/request_verification", null, null)
     }
 
     // GET https://api.iugu.com/v1/accounts/ID_DA_SUBCONTA

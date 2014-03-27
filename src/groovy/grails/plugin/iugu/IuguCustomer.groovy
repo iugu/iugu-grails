@@ -38,17 +38,6 @@ class IuguCustomer {
         return iuguService.save("customers", key, attributes)
     }
 
-    // DELETE https://api.iugu.com/v1/customers/ID_DO_CLIENTE
-    static delete(def key) {
-        if (!key) {
-            return false
-        }
-
-        iuguService = iuguService ?: new IuguService()
-
-        return iuguService.delete("customers", key)
-    }
-
     static search() {
         return IuguCustomer.search(null)
     }
@@ -58,6 +47,17 @@ class IuguCustomer {
         iuguService = iuguService ?: new IuguService()
 
         return iuguService.search("customers", options)
+    }
+
+    // DELETE https://api.iugu.com/v1/customers/ID_DO_CLIENTE
+    static delete(def key) {
+        if (!key) {
+            return false
+        }
+
+        iuguService = iuguService ?: new IuguService()
+
+        return iuguService.delete("customers", key)
     }
 
 }

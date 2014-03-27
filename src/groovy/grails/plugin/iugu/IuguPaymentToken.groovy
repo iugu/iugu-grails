@@ -13,6 +13,10 @@ class IuguPaymentToken {
 
         iuguService = iuguService ?: new IuguService()
 
+        if (Iugu.test) {
+            attributes.test = true
+        }
+
         return iuguService.create("payment_token", attributes)
     }
 
@@ -21,6 +25,7 @@ class IuguPaymentToken {
 // PaymentToken.create
 // [
 //     method: "credit_card",
+//     test: true, // Optional
 //     data: [
 //         number: "4111111111111111",
 //         verification_value: "123",

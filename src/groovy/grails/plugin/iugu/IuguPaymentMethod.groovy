@@ -38,17 +38,6 @@ class IuguPaymentMethod {
         return iuguService.save("customers/${customer_id}/payment_methods", key, attributes)
     }
 
-    // DELETE https://api.iugu.com/v1/customers/ID_DO_CLIENTE/payment_methods/ID_DA_FORMA_PAGAMENTO
-    static delete(def customer_id, def key) {
-        if (!customer_id || !key) {
-            return false
-        }
-
-        iuguService = iuguService ?: new IuguService()
-
-        return iuguService.delete("customers/${customer_id}/payment_methods", key)
-    }
-
     // GET https://api.iugu.com/v1/customers/ID_DO_CLIENTE/payment_methods
     static search(def customer_id) {
         if (!customer_id) {
@@ -58,6 +47,17 @@ class IuguPaymentMethod {
         iuguService = iuguService ?: new IuguService()
 
         return iuguService.search("customers/${customer_id}/payment_methods", null)
+    }
+
+    // DELETE https://api.iugu.com/v1/customers/ID_DO_CLIENTE/payment_methods/ID_DA_FORMA_PAGAMENTO
+    static delete(def customer_id, def key) {
+        if (!customer_id || !key) {
+            return false
+        }
+
+        iuguService = iuguService ?: new IuguService()
+
+        return iuguService.delete("customers/${customer_id}/payment_methods", key)
     }
 
 }

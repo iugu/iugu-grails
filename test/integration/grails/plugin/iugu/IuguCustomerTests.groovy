@@ -11,7 +11,7 @@ class IuguCustomerTests extends GroovyTestCase {
     @Before
     void setUp() {
         Iugu.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
-        Iugu.test = "true"
+        Iugu.test = true
     }
 
     @Test
@@ -23,7 +23,7 @@ class IuguCustomerTests extends GroovyTestCase {
         ])
 
         assertNotNull "There was a problem with the Rest call", customer
-        assertTrue "${customer?.errors}", customer?.errors?.size() > 0
+        assertNotNull "${customer.errors}", customer.errors
     }
 
     @Test
@@ -35,7 +35,8 @@ class IuguCustomerTests extends GroovyTestCase {
         ])
 
         assertNotNull "There was a problem with the Rest call", customer
-        assertTrue "Missing propertie: CustomerId", !customer?.id?.isEmpty()
+        assertNull "${customer.errors}", customer.errors
+        assertNotNull "Missing propertie: Id", customer.id
 
         customerTest = customer
     }
@@ -46,8 +47,8 @@ class IuguCustomerTests extends GroovyTestCase {
             def customer = IuguCustomer.fetch(customerTest?.id)
 
             assertNotNull "There was a problem with the Rest call", customer
-            assertFalse "${customer?.errors}", customer?.errors?.size() > 0
-            assertTrue "Missing propertie: CustomerId", !customer?.id?.isEmpty()
+            assertNull "${customer.errors}", customer.errors
+            assertNotNull "Missing propertie: Id", customer.id
         }
         else {
             fail "CreateCustomer failed!"
@@ -64,8 +65,8 @@ class IuguCustomerTests extends GroovyTestCase {
             customer = IuguCustomer.save(customer.id, customer)
 
             assertNotNull "There was a problem with the Rest call", customer
-            assertFalse "${customer?.errors}", customer?.errors?.size() > 0
-            assertTrue "Missing propertie: CustomerId", !customer?.id?.isEmpty()
+            assertNull "${customer.errors}", customer.errors
+            assertNotNull "Missing propertie: Id", customer.id
             assertEquals "Name not changed!", "Novo Nome do Cliente", customer.name
         }
         else {
@@ -78,7 +79,7 @@ class IuguCustomerTests extends GroovyTestCase {
         def customers = IuguCustomer.search()
 
         assertNotNull "There was a problem with the Rest call", customers
-        assertFalse "${customers?.errors}", customers?.errors?.size() > 0
+        assertNull "${customers.errors}", customers.errors
     }
 
     @Test
@@ -88,8 +89,8 @@ class IuguCustomerTests extends GroovyTestCase {
         ])
 
         assertNotNull "There was a problem with the Rest call", customers
-        assertFalse "${customers?.errors}", customers?.errors?.size() > 0
-        assertFalse "Filter not working!", customers?.items?.size() > 5
+        assertNull "${customers.errors}", customers.errors
+        assertTrue "Filter not working!", customers.items.size() <= 5
     }
 
     @Test
@@ -98,7 +99,7 @@ class IuguCustomerTests extends GroovyTestCase {
             def customer = IuguCustomer.delete(customerTest?.id)
 
             assertNotNull "There was a problem with the Rest call", customer
-            assertFalse "${customer?.errors}", customer?.errors?.size() > 0
+            assertNull "${customer.errors}", customer.errors
         }
         else {
             fail "CreateCustomer failed!"

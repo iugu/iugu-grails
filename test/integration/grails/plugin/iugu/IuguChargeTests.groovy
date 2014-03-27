@@ -9,7 +9,7 @@ class IuguChargeTests extends GroovyTestCase {
     @Before
     void setUp() {
         Iugu.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
-        Iugu.test = "true"
+        Iugu.test = true
     }
 
     @Test
@@ -51,7 +51,8 @@ class IuguChargeTests extends GroovyTestCase {
         ])
 
         assertNotNull "There was a problem with the Rest call", charge
-        assertFalse "${charge?.errors}", charge?.errors?.size() > 0
+        assertNotNull "Missing propertie: Errors[]", charge.errors
+        assertTrue "${charge.errors}", charge.errors.size() == 0
     }
 
     @Test
@@ -82,7 +83,8 @@ class IuguChargeTests extends GroovyTestCase {
         ])
 
         assertNotNull "There was a problem with the Rest call", charge
-        assertFalse "${charge?.errors}", charge?.errors?.size() > 0
+        assertNotNull "Missing propertie: Errors[]", charge.errors
+        assertTrue "${charge.errors}", charge.errors.size() == 0
     }
 
 }
