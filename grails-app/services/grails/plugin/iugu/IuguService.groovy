@@ -1,5 +1,7 @@
 package grails.plugin.iugu
 
+import grails.util.Environment
+
 import groovyx.net.http.ContentType
 
 
@@ -29,6 +31,7 @@ class IuguService {
 
     def apiRequest(def verb, def method, def key, def attributes, def options) {
         def result
+        def logMessage = "${verb.toUpperCase()}: ${Iugu.endpoint}/${Iugu.apiVersion}/${method}" + (key ? "/${key}" : "") + (attributes ? "\nBODY: ${attributes}" : "")
 
         try {
             withRest(uri: Iugu.endpoint, contentType: ContentType.JSON) {
@@ -48,10 +51,17 @@ class IuguService {
                 )
             }
 
-            println("${verb.toUpperCase()}: ${Iugu.endpoint}/${Iugu.apiVersion}/${method}" + (key ? "/${key}" : "") + (attributes ? "\nBODY: ${attributes}" : "") + (result ? "\nRESULT: ${result}" : ""))
+            logMessage = logMessage + (result ? "\nRESULT: ${result}" : "")
+
+            if (Environment.current != Environment.TEST) {
+                log.info(logMessage)
+            }
+            else {
+                println("\n" + logMessage)
+            }
         }
         catch(Exception e) {
-            log.error("${verb.toUpperCase()}: ${Iugu.endpoint}/${Iugu.apiVersion}/${method}" + (key ? "/${key}" : "") + (attributes ? "\nBODY: ${attributes}" : ""), e)
+            log.error(logMessage, e)
         }
         finally {
             return result

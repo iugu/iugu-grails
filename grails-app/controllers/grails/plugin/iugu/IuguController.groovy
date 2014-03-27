@@ -3,9 +3,6 @@ package grails.plugin.iugu
 
 class IuguController {
 
-    /** Dependency injection for the grailsApplication. */
-    def grailsApplication
-
     def index() {
 
     }
@@ -16,66 +13,8 @@ class IuguController {
         Iugu.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
         Iugu.test = "true"
 
-        chargeTests()
         customer = customerTests()
         paymentMethodTests(customer)
-    }
-
-    private chargeTests() {
-        def charge
-
-        println("\n\n!TEST createCharge(CartaoCredito)")
-        charge = IuguCharge.create([
-            token: "123AEAE123EA0kEIEIJAEI",
-            email: "teste@teste.com",
-            items: [
-                description: "Item Um",
-                quantity: "1",
-                price_cents: "1000"
-            ],
-            payer: [
-                name: "Nome do Cliente",
-                phone_prefix: "11",
-                phone: "12121212",
-                email: "teste@teste.com",
-                address: [
-                    street: "Rua Tal",
-                    number: "700",
-                    city: "São Paulo",
-                    state: "SP",
-                    country: "Brasil",
-                    zip_code: "12122-00"
-                ]
-            ]
-        ])
-        println(asserted(charge && charge?.errors?.isEmpty() && charge?.success && !charge?.invoice_id?.isEmpty()))
-
-        println("\n\n!TEST createCharge(Boleto)")
-        charge = IuguCharge.create([
-            method: "bank_slip",
-            email: "teste@teste.com",
-            items: [
-                description: "Item Um",
-                quantity: "1",
-                price_cents: "1000"
-            ],
-            payer: [
-                cpf_cnpj: "12312312312",
-                name: "Nome do Cliente",
-                phone_prefix: "11",
-                phone: "12121212",
-                email: "teste@teste.com",
-                address: [
-                    street: "Rua Tal",
-                    number: "700",
-                    city: "São Paulo",
-                    state: "SP",
-                    country: "Brasil",
-                    zip_code: "12122-00"
-                ]
-            ]
-        ])
-        println(asserted(charge && charge?.errors?.isEmpty() && charge?.success && !charge?.invoice_id?.isEmpty()))
     }
 
     private customerTests() {
