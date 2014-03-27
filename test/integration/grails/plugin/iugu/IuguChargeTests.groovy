@@ -13,7 +13,7 @@ class IuguChargeTests extends GroovyTestCase {
     }
 
     @Test
-    void testChargeCartaoCredito() {
+    void "Create IuguCharge with CartaoCredito"() {
         def paymentToken = IuguPaymentToken.create([
             method: "credit_card",
             data: [
@@ -51,11 +51,11 @@ class IuguChargeTests extends GroovyTestCase {
         ])
 
         assertNotNull "There was a problem with the Rest call", charge
-        assertTrue "${charge.errors}", charge.errors.size() == 0
+        assertFalse "${charge?.errors}", charge?.errors?.size() > 0
     }
 
     @Test
-    void testChargeBoleto() {
+    void "Create IuguCharge with Boleto"() {
         def charge = IuguCharge.create([
             method: "bank_slip",
             email: "teste@teste.com",
@@ -82,7 +82,7 @@ class IuguChargeTests extends GroovyTestCase {
         ])
 
         assertNotNull "There was a problem with the Rest call", charge
-        assertTrue "${charge.errors}", charge.errors.size() == 0
+        assertFalse "${charge?.errors}", charge?.errors?.size() > 0
     }
 
 }

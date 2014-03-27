@@ -13,7 +13,7 @@ class IuguPaymentTokenTests extends GroovyTestCase {
     }
 
     @Test
-    void testPaymentToken() {
+    void testCreatePaymentToken() {
         def paymentToken = IuguPaymentToken.create([
             method: "credit_card",
             data: [
@@ -27,7 +27,7 @@ class IuguPaymentTokenTests extends GroovyTestCase {
         ])
 
         assertNotNull "There was a problem with the Rest call", paymentToken
-        assertTrue "${paymentToken}", !paymentToken?.id.isEmpty()
+        assertTrue "${paymentToken}", !paymentToken?.id?.isEmpty()
     }
 
 }

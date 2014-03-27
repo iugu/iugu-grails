@@ -8,59 +8,17 @@ class IuguController {
     }
 
     def testApi() {
-        def customer
-
         Iugu.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
         Iugu.test = "true"
 
-        customer = customerTests()
-        paymentMethodTests(customer)
+        paymentMethodTests()
     }
 
-    private customerTests() {
-        def customer
-        def customers
-
-        println("\n\n!TEST createCustomer")
-        customer = IuguCustomer.create([
-            email: "email@email.com",
-            name: "Nome do Cliente",
-            notes: "Anotações Gerais"
-        ])
-        println(asserted(!customer?.id?.isEmpty()))
-
-        println("\n\n!TEST fetchCustomer")
-        customer = IuguCustomer.fetch(customer.id)
-        println(asserted(!customer?.id?.isEmpty()))
-
-        println("\n\n!TEST saveCustomer")
-        customer.name = "Novo Nome do Cliente"
-        customer.notes = "Novas Anotações Gerais"
-        customer = IuguCustomer.save(customer.id, customer)
-        println(asserted(!customer?.id?.isEmpty()))
-
-        println("\n\n!TEST searchCustomers")
-        customers = IuguCustomer.search()
-        println(asserted(customers))
-
-        println("\n\n!TEST deleteCustomer")
-        customer = IuguCustomer.delete(customer.id)
-        println(asserted(!customer?.id?.isEmpty()))
-
-        println("\n\n!TEST searchCustomers(Limit to 5)")
-        customers = IuguCustomer.search([
-            limit: 5
-        ])
-        println(asserted(customers))
-
-        return customers?.items?.first()
-    }
-
-    def paymentMethodTests(def customer) {
+    def paymentMethodTests() {
         def paymentMethod
         def paymentMethods
 
-        customer = customer ?: [id: "77C2565F6F064A26ABED4255894224F0"]
+        customer = [id: "77C2565F6F064A26ABED4255894224F0"]
 
         println("\n\n!TEST createPaymentMethod")
         paymentMethod = IuguPaymentMethod.create(customer.id, [
