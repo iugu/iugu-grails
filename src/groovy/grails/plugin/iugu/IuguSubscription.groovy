@@ -116,3 +116,37 @@ class IuguSubscription {
     }
 
 }
+
+// Subscription.create
+// [
+//     plan_identifier: "", // Optional
+//     customer_id: "",
+//     expires_at: "", // Optional
+//     only_on_charge_success: "", // Optional
+//     skip_charge: "", // Optional
+//     credits_based: "", // Optional
+//     price_cents: "", // Optional
+//     credits_cycle: "", // Optional
+//     credits_min: "", // Optional
+//     subitems: [ // Optional
+//         [
+//             description: "",
+//             price_cents: "",
+//             quantity: "",
+//             recurrent: "" // Optional
+//         ]
+//     ]
+// ]
+
+// Subscription.search
+// [
+//     limit: 5,
+//     start: 0,
+//     created_at_from: "31/12/2013",
+//     created_at_to: "31/12/2014",
+//     query: "email@email.com",
+//     updated_since: "31/12/2013",
+//     sortBy: [
+//         email: "DESC"
+//     ]
+// ]

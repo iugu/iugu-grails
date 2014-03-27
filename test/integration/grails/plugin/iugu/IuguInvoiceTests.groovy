@@ -15,7 +15,7 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Create IuguInvoice with invalid attributes"() {
+    void "Create an IuguInvoice with invalid attributes"() {
         def invoice = IuguInvoice.create([
             email: "teste",
             due_date: (new Date() + 5).format("dd/MM/yyyy"),
@@ -33,7 +33,7 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Create IuguInvoice with valid attributes"() {
+    void "Create an IuguInvoice with valid attributes"() {
         def invoice = IuguInvoice.create([
             email: "teste@teste.com",
             due_date: (new Date() + 5).format("dd/MM/yyyy"),
@@ -54,7 +54,7 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Fetch IuguInvoice"() {
+    void "Fetch an IuguInvoice"() {
         if (invoiceTest?.id) {
             def invoice = IuguInvoice.fetch(invoiceTest?.id)
 
@@ -68,7 +68,7 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Save IuguInvoice"() {
+    void "Save an IuguInvoice"() {
         if (invoiceTest?.id) {
             def invoice = invoiceTest
 
@@ -86,7 +86,7 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Cancel IuguInvoice"() {
+    void "Cancel an IuguInvoice"() {
         if (invoiceTest?.id) {
             def invoice = invoiceTest
 
@@ -105,7 +105,7 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Refund IuguInvoice"() {
+    void "Refund an IuguInvoice"() {
         if (invoiceTest?.id) {
             def invoice = invoiceTest
 
@@ -116,7 +116,6 @@ class IuguInvoiceTests {
 
             assertNotNull "There was a problem with the Rest call", invoice
             assertNull "${invoice.errors}", invoice.errors
-            // assertEquals "Invoice not canceled!", "canceled", invoice.status
         }
         else {
             fail "CreateInvoice failed!"
@@ -124,7 +123,7 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Search IuguInvoice without filter options"() {
+    void "Search for an IuguInvoice without filter options"() {
         def invoices = IuguInvoice.search()
 
         assertNotNull "There was a problem with the Rest call", invoices
@@ -132,7 +131,7 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Search IuguInvoice and limit to 5 results"() {
+    void "Search for an IuguInvoice and limit to 5 results"() {
         def invoices = IuguInvoice.search([
             limit: 5
         ])
@@ -143,7 +142,7 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Delete IuguInvoice"() {
+    void "Delete an IuguInvoice"() {
         if (invoiceTest?.id) {
             def invoice = IuguInvoice.delete(invoiceTest?.id)
 

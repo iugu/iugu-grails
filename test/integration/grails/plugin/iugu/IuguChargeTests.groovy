@@ -13,7 +13,7 @@ class IuguChargeTests extends GroovyTestCase {
     }
 
     @Test
-    void "Create IuguCharge with CartaoCredito"() {
+    void "Create a IuguCharge with CartaoCredito"() {
         def paymentToken = IuguPaymentToken.create([
             method: "credit_card",
             data: [
@@ -56,7 +56,7 @@ class IuguChargeTests extends GroovyTestCase {
     }
 
     @Test
-    void "Create IuguCharge with Boleto"() {
+    void "Create a IuguCharge with Boleto"() {
         def charge = IuguCharge.create([
             method: "bank_slip",
             email: "teste@teste.com",

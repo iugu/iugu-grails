@@ -84,7 +84,7 @@ class IuguInvoice {
 
 }
 
-// POST https://api.iugu.com/v1/invoices
+// Invoice.create
 // [
 //     email: "teste@teste.com",
 //     due_date: "30/11/2041",
@@ -109,5 +109,18 @@ class IuguInvoice {
 //             description: "",
 //             notes: ""
 //         ]
+//     ]
+// ]
+
+// Invoice.search
+// [
+//     limit: 5,
+//     start: 0,
+//     created_at_from: "31/12/2013",
+//     created_at_to: "31/12/2014",
+//     query: "email@email.com",
+//     updated_since: "31/12/2013",
+//     sortBy: [
+//         email: "DESC"
 //     ]
 // ]

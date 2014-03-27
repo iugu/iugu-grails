@@ -13,7 +13,7 @@ class IuguPaymentTokenTests extends GroovyTestCase {
     }
 
     @Test
-    void "Create Payment Token with invalid attributes"() {
+    void "Create a Payment Token with invalid attributes"() {
         def paymentToken = IuguPaymentToken.create([
             method: "credit_card",
             data: [
@@ -31,7 +31,7 @@ class IuguPaymentTokenTests extends GroovyTestCase {
     }
 
     @Test
-    void "Create Payment Token with valid attributes"() {
+    void "Create a Payment Token with valid attributes"() {
         def paymentToken = IuguPaymentToken.create([
             method: "credit_card",
             data: [

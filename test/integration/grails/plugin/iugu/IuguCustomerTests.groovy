@@ -15,7 +15,7 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Create IuguCustomer with invalid attributes"() {
+    void "Create an IuguCustomer with invalid attributes"() {
         def customer = IuguCustomer.create([
             email: "email",
             name: "Nome do Cliente",
@@ -27,7 +27,7 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Create IuguCustomer with valid attributes"() {
+    void "Create an IuguCustomer with valid attributes"() {
         def customer = IuguCustomer.create([
             email: "email@email.com",
             name: "Nome do Cliente",
@@ -42,7 +42,7 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Fetch IuguCustomer"() {
+    void "Fetch an IuguCustomer"() {
         if (customerTest?.id) {
             def customer = IuguCustomer.fetch(customerTest?.id)
 
@@ -56,7 +56,7 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Save IuguCustomer"() {
+    void "Save an IuguCustomer"() {
         if (customerTest?.id) {
             def customer = customerTest
 
@@ -75,7 +75,7 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Search IuguCustomer without filter options"() {
+    void "Search for an IuguCustomer without filter options"() {
         def customers = IuguCustomer.search()
 
         assertNotNull "There was a problem with the Rest call", customers
@@ -83,7 +83,7 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Search IuguCustomer and limit to 5 results"() {
+    void "Search for an IuguCustomer and limit to 5 results"() {
         def customers = IuguCustomer.search([
             limit: 5
         ])
@@ -94,7 +94,7 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Delete IuguCustomer"() {
+    void "Delete an IuguCustomer"() {
         if (customerTest?.id) {
             def customer = IuguCustomer.delete(customerTest?.id)
 
