@@ -16,15 +16,21 @@ class IuguTransfer {
         return iuguService.create("transfers", attributes)
     }
 
-    // GET https://api.iugu.com/v1/transfers
-    static fetch(def key) {
-        if (!key) {
-            return false
-        }
+    static search() {
+        return IuguTransfer.search(null)
+    }
 
+    // GET https://api.iugu.com/v1/transfers
+    static search(def options) {
         iuguService = iuguService ?: new IuguService()
 
-        return iuguService.fetch("transfers", key)
+        return iuguService.search("transfers", options)
     }
 
 }
+
+// Transfer.create
+// [
+//     receiver_id: "77C2565F6F064A26ABED4255894224F0",
+//     amount_cents: 1000,
+// ]

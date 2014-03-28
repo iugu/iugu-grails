@@ -23,8 +23,8 @@ class IuguSubscriptionTests {
             subitems: [
                 [
                     description: "Item 1",
-                    price_cents: "1000",
-                    quantity: "1",
+                    price_cents: 1000,
+                    quantity: 1,
                     recurrent: true
                 ]
             ]
@@ -49,8 +49,8 @@ class IuguSubscriptionTests {
             subitems: [
                 [
                     description: "Item 1",
-                    price_cents: "1000",
-                    quantity: "1",
+                    price_cents: 1000,
+                    quantity: 1,
                     recurrent: true
                 ]
             ]

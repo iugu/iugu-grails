@@ -61,7 +61,7 @@ class IuguInvoice {
     }
 
     static search() {
-        return IuguCustomer.search(null)
+        return IuguInvoice.search(null)
     }
 
     // GET https://api.iugu.com/v1/invoices

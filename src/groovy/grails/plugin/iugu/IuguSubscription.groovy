@@ -94,7 +94,7 @@ class IuguSubscription {
     }
 
     static search() {
-        return IuguCustomer.search(null)
+        return IuguSubscription.search(null)
     }
 
     // GET https://api.iugu.com/v1/subscriptions
@@ -119,21 +119,21 @@ class IuguSubscription {
 
 // Subscription.create
 // [
-//     plan_identifier: "", // Optional
-//     customer_id: "",
-//     expires_at: "", // Optional
-//     only_on_charge_success: "", // Optional
-//     skip_charge: "", // Optional
-//     credits_based: "", // Optional
-//     price_cents: "", // Optional
-//     credits_cycle: "", // Optional
-//     credits_min: "", // Optional
+//     plan_identifier: "plano_basico", // Optional
+//     customer_id: "FF3149CE52CB4A789925F154B489BFDD",
+//     expires_at: "DD/MM/AAAA", // Optional
+//     only_on_charge_success: false, // Optional
+//     skip_charge: false, // Optional
+//     credits_based: true, // Optional
+//     price_cents: 1000, // Optional
+//     credits_cycle: 100, // Optional
+//     credits_min: 100, // Optional
 //     subitems: [ // Optional
 //         [
-//             description: "",
-//             price_cents: "",
-//             quantity: "",
-//             recurrent: "" // Optional
+//             description: "Item um",
+//             price_cents: 1000,
+//             quantity: 1,
+//             recurrent: false // Optional
 //         ]
 //     ]
 // ]
