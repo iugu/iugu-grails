@@ -43,8 +43,8 @@ class IuguSubscriptionTests {
         ])
 
         def subscription = IuguSubscription.create([
-            plan_identifier: "plano_basico",
-            customer_id: "${customer.id}",
+            plan_identifier: "emotionme_basic",
+            customer_id: customer.id,
             expires_at: (new Date() + 365).format("dd/MM/yyyy"),
             subitems: [
                 [
@@ -88,7 +88,7 @@ class IuguSubscriptionTests {
             assertNotNull "There was a problem with the Rest call", subscription
             assertNull "${subscription.errors}", subscription.errors
             assertNotNull "Missing propertie: Id", subscription.id
-            assertEquals "Suspended not changed!", "true", subscription.suspended
+            assertEquals "Suspended not changed!", true, subscription.suspended
         }
         else {
             fail "CreateSubscription failed!"
@@ -104,7 +104,7 @@ class IuguSubscriptionTests {
 
             assertNotNull "There was a problem with the Rest call", subscription
             assertNull "${subscription.errors}", subscription.errors
-            assertEquals "Subscription not activated!", "false", subscription.suspended
+            assertEquals "Subscription not activated!", false, subscription.suspended
         }
         else {
             fail "CreateSubscription failed!"
@@ -120,7 +120,7 @@ class IuguSubscriptionTests {
 
             assertNotNull "There was a problem with the Rest call", subscription
             assertNull "${subscription.errors}", subscription.errors
-            assertEquals "Subscription not suspended!", "true", subscription.suspended
+            assertEquals "Subscription not suspended!", true, subscription.suspended
         }
         else {
             fail "CreateSubscription failed!"
@@ -129,17 +129,54 @@ class IuguSubscriptionTests {
 
     @Test
     void "Change the Plan of an IuguSubscription"() {
-        // TODO change_plan
+        if (subscriptionTest?.id) {
+            def subscription = subscriptionTest
+
+            subscription = IuguSubscription.change_plan("emotionme_premium", subscriptionTest?.id)
+
+            assertNotNull "There was a problem with the Rest call", subscription
+            assertNull "${subscription.errors}", subscription.errors
+            assertEquals "Plan not changed!", "emotionme_premium", subscription.plan_identifier
+        }
+        else {
+            fail "CreateSubscription failed!"
+        }
     }
 
     @Test
     void "Add Credits to an IuguSubscription"() {
-        // TODO add_credits
+        if (subscriptionTest?.id) {
+            def subscription = subscriptionTest
+
+            subscription = IuguSubscription.add_credits(subscriptionTest?.id, [
+                quantity: 12300
+            ])
+
+            assertNotNull "There was a problem with the Rest call", subscription
+            assertNull "${subscription.errors}", subscription.errors
+            assertEquals "Credits not added!", 12300, subscription.credits
+        }
+        else {
+            fail "CreateSubscription failed!"
+        }
     }
 
     @Test
     void "Remove Credits from an IuguSubscription"() {
-        // TODO remove_credits
+        if (subscriptionTest?.id) {
+            def subscription = subscriptionTest
+
+            subscription = IuguSubscription.remove_credits(subscriptionTest?.id, [
+                quantity: 12300
+            ])
+
+            assertNotNull "There was a problem with the Rest call", subscription
+            assertNull "${subscription.errors}", subscription.errors
+            assertEquals "Credits not removed!", 0, subscription.credits
+        }
+        else {
+            fail "CreateSubscription failed!"
+        }
     }
 
     @Test

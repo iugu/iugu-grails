@@ -72,25 +72,25 @@ class IuguSubscription {
     }
 
     // PUT https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA/add_credits
-    static add_credits(def key) {
-        if (!key) {
+    static add_credits(def key, def attributes) {
+        if (!key || !attributes) {
             return false
         }
 
         iuguService = iuguService ?: new IuguService()
 
-        return iuguService.apiRequest("put", "subscriptions", "${key}/add_credits", null, null)
+        return iuguService.apiRequest("put", "subscriptions", "${key}/add_credits", attributes, null)
     }
 
     // PUT https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA/remove_credits
-    static remove_credits(def key) {
-        if (!key) {
+    static remove_credits(def key, def attributes) {
+        if (!key || !attributes) {
             return false
         }
 
         iuguService = iuguService ?: new IuguService()
 
-        return iuguService.apiRequest("put", "subscriptions", "${key}/remove_credits", null, null)
+        return iuguService.apiRequest("put", "subscriptions", "${key}/remove_credits", attributes, null)
     }
 
     static search() {
