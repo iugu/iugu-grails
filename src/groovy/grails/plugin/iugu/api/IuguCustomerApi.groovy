@@ -1,6 +1,7 @@
 package grails.plugin.iugu.api
 
 import grails.plugin.iugu.IuguApiService
+import grails.plugin.iugu.api.IuguApi
 
 
 class IuguCustomerApi {
@@ -60,6 +61,28 @@ class IuguCustomerApi {
         iuguApiService = iuguApiService ?: new IuguApiService()
 
         return iuguApiService.delete("customers", key)
+    }
+
+    /**
+     * Format Customer object to model
+     * @param customer
+     * @return
+     */
+    static formatCustomer(def customer) {
+        def formatedCustomer
+
+        if (customer && !customer.errors && customer.id) {
+            formatedCustomer = [
+                iuguCreatedAt: IuguApi.formatDate(customer.created_at),
+                iuguUpdatedAt: IuguApi.formatDate(customer.updated_at),
+                iuguId: customer.id,
+                iuguEmail: customer.email,
+                iuguName: customer.name,
+                iuguNotes: customer.notes
+            ]
+        }
+
+        return formatedCustomer
     }
 
 }

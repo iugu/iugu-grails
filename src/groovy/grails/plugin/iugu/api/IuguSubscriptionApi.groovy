@@ -1,6 +1,7 @@
 package grails.plugin.iugu.api
 
 import grails.plugin.iugu.IuguApiService
+import grails.plugin.iugu.api.IuguApi
 
 
 class IuguSubscriptionApi {
@@ -115,6 +116,48 @@ class IuguSubscriptionApi {
         iuguApiService = iuguApiService ?: new IuguApiService()
 
         return iuguApiService.delete("subscriptions", key)
+    }
+
+    /**
+     * Format Subscription object to model
+     * @param customer
+     * @return
+     */
+    static formatSubscription(def subscription) {
+        def formatedSubscription
+
+        if (subscription && !subscription.errors && subscription.id) {
+            formatedSubscription = [
+                iuguCreatedAt: IuguApi.formatDate(subscription.created_at),
+                iuguUpdatedAt: IuguApi.formatDate(subscription.updated_at),
+                iuguExpiresAt: IuguApi.formatDate(subscription.expires_at),
+                iuguCycledAt: IuguApi.formatDate(subscription.cycled_at),
+                iuguTrialExpiresAt: IuguApi.formatDate(subscription.trial_expires_at),
+                iuguId: subscription.id,
+                iuguSuspended: subscription.suspended,
+                iuguPlanIdentifier: subscription.plan_identifier,
+                iuguPriceCents: subscription.price_cents,
+                iuguCurrency: subscription.currency,
+                iuguFeaturesFeatName: subscription.features?.feat?.name,
+                iuguFeaturesFeatValue: subscription.features?.feat?.value,
+                iuguCustomerName: subscription.customer_name,
+                iuguCustomerEmail: subscription.customer_email,
+                iuguCreditsMin: subscription.credits_min,
+                iuguCreditsCycle: subscription.credits_cycle,
+                iuguCustomerId: subscription.customer_id,
+                iuguPlanName: subscription.plan_name,
+                iuguCustomerRef: subscription.customer_ref,
+                iuguPlanRef: subscription.plan_ref,
+                iuguActive: subscription.active,
+                iuguInTrial: subscription.in_trial,
+                iuguCredits: subscription.credits,
+                iuguCreditsBased: subscription.credits_based
+                // iuguRecentInvoices: subscription.recent_invoices
+                // TODO: format Subscription Subitem and Log
+            ]
+        }
+
+        return formatedSubscription
     }
 
 }

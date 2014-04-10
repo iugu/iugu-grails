@@ -1,6 +1,7 @@
 package grails.plugin.iugu.api
 
 import grails.plugin.iugu.IuguApiService
+import grails.plugin.iugu.api.IuguApi
 
 
 class IuguPaymentMethodApi {
@@ -60,6 +61,28 @@ class IuguPaymentMethodApi {
         iuguApiService = iuguApiService ?: new IuguApiService()
 
         return iuguApiService.delete("customers/${customer_id}/payment_methods", key)
+    }
+
+    /**
+     * Format PaymentMethod object to model
+     * @param customer
+     * @return
+     */
+    static formatPaymentMethod(def paymentMethod) {
+        def formatedPaymentMethod
+
+        if (paymentMethod && !paymentMethod.errors && paymentMethod.id) {
+            formatedPaymentMethod = [
+                iuguId: paymentMethod.id,
+                iuguDescription: paymentMethod.description,
+                iuguItemType: paymentMethod.item_type,
+                iuguDataToken: paymentMethod?.data?.token,
+                iuguDataDisplayNumber: paymentMethod?.data?.display_number,
+                iuguDataBrand: paymentMethod?.data?.brand
+            ]
+        }
+
+        return formatedPaymentMethod
     }
 
 }
