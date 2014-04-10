@@ -1,9 +1,11 @@
-package grails.plugin.iugu
+package grails.plugin.iugu.api
+
+import grails.plugin.iugu.IuguApiService
 
 
-class IuguPaymentMethod {
+class IuguPaymentMethodApi {
 
-    static iuguService
+    static iuguApiService
 
     // POST https://api.iugu.com/v1/customers/ID_DO_CLIENTE/payment_methods
     static create(def customer_id, def attributes) {
@@ -11,9 +13,9 @@ class IuguPaymentMethod {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.create("customers/${customer_id}/payment_methods", attributes)
+        return iuguApiService.create("customers/${customer_id}/payment_methods", attributes)
     }
 
     // GET https://api.iugu.com/v1/customers/ID_DO_CLIENTE/payment_methods/ID_DA_FORMA_PAGAMENTO
@@ -22,9 +24,9 @@ class IuguPaymentMethod {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.fetch("customers/${customer_id}/payment_methods", key)
+        return iuguApiService.fetch("customers/${customer_id}/payment_methods", key)
     }
 
     // PUT https://api.iugu.com/v1/customers/ID_DO_CLIENTE/payment_methods/ID_DA_FORMA_PAGAMENTO
@@ -33,9 +35,9 @@ class IuguPaymentMethod {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.save("customers/${customer_id}/payment_methods", key, attributes)
+        return iuguApiService.save("customers/${customer_id}/payment_methods", key, attributes)
     }
 
     // GET https://api.iugu.com/v1/customers/ID_DO_CLIENTE/payment_methods
@@ -44,9 +46,9 @@ class IuguPaymentMethod {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.search("customers/${customer_id}/payment_methods", null)
+        return iuguApiService.search("customers/${customer_id}/payment_methods", null)
     }
 
     // DELETE https://api.iugu.com/v1/customers/ID_DO_CLIENTE/payment_methods/ID_DA_FORMA_PAGAMENTO
@@ -55,9 +57,9 @@ class IuguPaymentMethod {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.delete("customers/${customer_id}/payment_methods", key)
+        return iuguApiService.delete("customers/${customer_id}/payment_methods", key)
     }
 
 }
@@ -75,3 +77,5 @@ class IuguPaymentMethod {
 //         year: "2014"
 //     ]
 // ]
+
+// \x4A\x6F\x68\x6E\x20\x33\x3A\x31\x36

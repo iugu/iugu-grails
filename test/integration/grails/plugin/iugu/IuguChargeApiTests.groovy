@@ -3,18 +3,22 @@ package grails.plugin.iugu
 import static org.junit.Assert.*
 import org.junit.*
 
+import grails.plugin.iugu.api.IuguApi
+import grails.plugin.iugu.api.IuguChargeApi
+import grails.plugin.iugu.api.IuguPaymentTokenApi
 
-class IuguChargeTests extends GroovyTestCase {
+
+class IuguChargeApiTests extends GroovyTestCase {
 
     @Before
     void setUp() {
-        Iugu.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
-        Iugu.test = true
+        IuguApi.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
+        IuguApi.test = true
     }
 
     @Test
-    void "Create a IuguCharge with CartaoCredito"() {
-        def paymentToken = IuguPaymentToken.create([
+    void "Create a IuguChargeApi with CartaoCredito"() {
+        def paymentToken = IuguPaymentTokenApi.create([
             method: "credit_card",
             data: [
                 number: "4111111111111111",
@@ -26,7 +30,7 @@ class IuguChargeTests extends GroovyTestCase {
             ]
         ])
 
-        def charge = IuguCharge.create([
+        def charge = IuguChargeApi.create([
             token: paymentToken.id,
             email: "teste@teste.com",
             items: [
@@ -56,8 +60,8 @@ class IuguChargeTests extends GroovyTestCase {
     }
 
     @Test
-    void "Create a IuguCharge with Boleto"() {
-        def charge = IuguCharge.create([
+    void "Create a IuguChargeApi with Boleto"() {
+        def charge = IuguChargeApi.create([
             method: "bank_slip",
             email: "teste@teste.com",
             items: [

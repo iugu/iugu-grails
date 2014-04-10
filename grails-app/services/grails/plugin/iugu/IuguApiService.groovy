@@ -1,11 +1,12 @@
 package grails.plugin.iugu
 
 import grails.util.Environment
-
 import groovyx.net.http.ContentType
 
+import grails.plugin.iugu.api.IuguApi
 
-class IuguService {
+
+class IuguApiService {
 
     def transactional = false
 
@@ -31,10 +32,10 @@ class IuguService {
 
     def apiRequest(def verb, def method, def key, def attributes, def options) {
         def result
-        def logMessage = "${verb.toUpperCase()}: ${Iugu.endpoint}/${Iugu.apiVersion}/${method}" + (key ? "/${key}" : "") + (attributes ? "\nBODY: ${attributes}" : "")
+        def logMessage = "${verb.toUpperCase()}: ${IuguApi.endpoint}/${IuguApi.apiVersion}/${method}" + (key ? "/${key}" : "") + (attributes ? "\nBODY: ${attributes}" : "")
 
         try {
-            withRest(uri: Iugu.endpoint, contentType: ContentType.JSON) {
+            withRest(uri: IuguApi.endpoint, contentType: ContentType.JSON) {
                 handler.success = { resp, results ->
                     result = results
                 }
@@ -44,8 +45,8 @@ class IuguService {
                 }
 
                 "${verb}"(
-                    path: "/${Iugu.apiVersion}/${method}" + (key ? "/${key}" : ""),
-                    headers: ["Authorization": "Basic " + new String("${Iugu.apiKey}:".encodeAsBase64())],
+                    path: "/${IuguApi.apiVersion}/${method}" + (key ? "/${key}" : ""),
+                    headers: ["Authorization": "Basic " + new String("${IuguApi.apiKey}:".encodeAsBase64())],
                     query: options,
                     body: attributes
                 )
@@ -69,3 +70,5 @@ class IuguService {
     }
 
 }
+
+// \x4A\x6F\x68\x6E\x20\x33\x3A\x31\x36

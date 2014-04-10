@@ -3,20 +3,23 @@ package grails.plugin.iugu
 import static org.junit.Assert.*
 import org.junit.*
 
+import grails.plugin.iugu.api.IuguApi
+import grails.plugin.iugu.api.IuguCustomerApi
 
-class IuguCustomerTests extends GroovyTestCase {
+
+class IuguCustomerApiTests extends GroovyTestCase {
 
     static customerTest
 
     @Before
     void setUp() {
-        Iugu.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
-        Iugu.test = true
+        IuguApi.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
+        IuguApi.test = true
     }
 
     @Test
-    void "Create an IuguCustomer with invalid attributes"() {
-        def customer = IuguCustomer.create([
+    void "Create an IuguCustomerApi with invalid attributes"() {
+        def customer = IuguCustomerApi.create([
             email: "email",
             name: "Nome do Cliente",
             notes: "Anotações Gerais"
@@ -27,8 +30,8 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Create an IuguCustomer with valid attributes"() {
-        def customer = IuguCustomer.create([
+    void "Create an IuguCustomerApi with valid attributes"() {
+        def customer = IuguCustomerApi.create([
             email: "email@email.com",
             name: "Nome do Cliente",
             notes: "Anotações Gerais"
@@ -42,9 +45,9 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Fetch an IuguCustomer"() {
+    void "Fetch an IuguCustomerApi"() {
         if (customerTest?.id) {
-            def customer = IuguCustomer.fetch(customerTest?.id)
+            def customer = IuguCustomerApi.fetch(customerTest?.id)
 
             assertNotNull "There was a problem with the Rest call", customer
             assertNull "${customer.errors}", customer.errors
@@ -56,13 +59,13 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Save an IuguCustomer"() {
+    void "Save an IuguCustomerApi"() {
         if (customerTest?.id) {
             def customer = customerTest
 
             customer.name = "Novo Nome do Cliente"
             customer.notes = "Novas Anotações Gerais"
-            customer = IuguCustomer.save(customer.id, customer)
+            customer = IuguCustomerApi.save(customer.id, customer)
 
             assertNotNull "There was a problem with the Rest call", customer
             assertNull "${customer.errors}", customer.errors
@@ -75,16 +78,16 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Search for an IuguCustomer without filter options"() {
-        def customers = IuguCustomer.search()
+    void "Search for an IuguCustomerApi without filter options"() {
+        def customers = IuguCustomerApi.search()
 
         assertNotNull "There was a problem with the Rest call", customers
         assertNull "${customers.errors}", customers.errors
     }
 
     @Test
-    void "Search for an IuguCustomer and limit to 5 results"() {
-        def customers = IuguCustomer.search([
+    void "Search for an IuguCustomerApi and limit to 5 results"() {
+        def customers = IuguCustomerApi.search([
             limit: 5
         ])
 
@@ -94,9 +97,9 @@ class IuguCustomerTests extends GroovyTestCase {
     }
 
     @Test
-    void "Delete an IuguCustomer"() {
+    void "Delete an IuguCustomerApi"() {
         if (customerTest?.id) {
-            def customer = IuguCustomer.delete(customerTest?.id)
+            def customer = IuguCustomerApi.delete(customerTest?.id)
 
             assertNotNull "There was a problem with the Rest call", customer
             assertNull "${customer.errors}", customer.errors

@@ -1,9 +1,11 @@
-package grails.plugin.iugu
+package grails.plugin.iugu.api
+
+import grails.plugin.iugu.IuguApiService
 
 
-class IuguSubscription {
+class IuguSubscriptionApi {
 
-    static iuguService
+    static iuguApiService
 
     // POST https://api.iugu.com/v1/subscriptions
     static create(def attributes) {
@@ -11,9 +13,9 @@ class IuguSubscription {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.create("subscriptions", attributes)
+        return iuguApiService.create("subscriptions", attributes)
     }
 
     // GET https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA
@@ -22,9 +24,9 @@ class IuguSubscription {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.fetch("subscriptions", key)
+        return iuguApiService.fetch("subscriptions", key)
     }
 
     // PUT https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA
@@ -33,9 +35,9 @@ class IuguSubscription {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.save("subscriptions", key, attributes)
+        return iuguApiService.save("subscriptions", key, attributes)
     }
 
     // POST https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA/suspend
@@ -44,9 +46,9 @@ class IuguSubscription {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.apiRequest("post", "subscriptions", "${key}/suspend", null, null)
+        return iuguApiService.apiRequest("post", "subscriptions", "${key}/suspend", null, null)
     }
 
     // POST https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA/activate
@@ -55,9 +57,9 @@ class IuguSubscription {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.apiRequest("post", "subscriptions", "${key}/activate", null, null)
+        return iuguApiService.apiRequest("post", "subscriptions", "${key}/activate", null, null)
     }
 
     // POST https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA/change_plan/PLAN_IDENTIFIER
@@ -66,9 +68,9 @@ class IuguSubscription {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.apiRequest("post", "subscriptions", "${key}/change_plan/${plan_id}", null, null)
+        return iuguApiService.apiRequest("post", "subscriptions", "${key}/change_plan/${plan_id}", null, null)
     }
 
     // PUT https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA/add_credits
@@ -77,9 +79,9 @@ class IuguSubscription {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.apiRequest("put", "subscriptions", "${key}/add_credits", attributes, null)
+        return iuguApiService.apiRequest("put", "subscriptions", "${key}/add_credits", attributes, null)
     }
 
     // PUT https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA/remove_credits
@@ -88,20 +90,20 @@ class IuguSubscription {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.apiRequest("put", "subscriptions", "${key}/remove_credits", attributes, null)
+        return iuguApiService.apiRequest("put", "subscriptions", "${key}/remove_credits", attributes, null)
     }
 
     static search() {
-        return IuguSubscription.search(null)
+        return IuguSubscriptionApi.search(null)
     }
 
     // GET https://api.iugu.com/v1/subscriptions
     static search(def options) {
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.search("subscriptions", options)
+        return iuguApiService.search("subscriptions", options)
     }
 
     // DELETE https://api.iugu.com/v1/subscriptions/ID_DA_ASSINATURA
@@ -110,9 +112,9 @@ class IuguSubscription {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.delete("subscriptions", key)
+        return iuguApiService.delete("subscriptions", key)
     }
 
 }
@@ -150,3 +152,5 @@ class IuguSubscription {
 //         email: "DESC"
 //     ]
 // ]
+
+// \x4A\x6F\x68\x6E\x20\x33\x3A\x31\x36

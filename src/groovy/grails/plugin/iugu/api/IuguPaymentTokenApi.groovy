@@ -1,9 +1,11 @@
-package grails.plugin.iugu
+package grails.plugin.iugu.api
+
+import grails.plugin.iugu.IuguApiService
 
 
-class IuguPaymentToken {
+class IuguPaymentTokenApi {
 
-    static iuguService
+    static iuguApiService
 
     // POST https://api.iugu.com/v1/payment_token
     static create(def attributes) {
@@ -11,13 +13,13 @@ class IuguPaymentToken {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        if (Iugu.test) {
+        if (IuguApi.test) {
             attributes.test = true
         }
 
-        return iuguService.create("payment_token", attributes)
+        return iuguApiService.create("payment_token", attributes)
     }
 
 }
@@ -35,3 +37,5 @@ class IuguPaymentToken {
 //         year: "2013"
 //     ]
 // ]
+
+// \x4A\x6F\x68\x6E\x20\x33\x3A\x31\x36

@@ -3,20 +3,24 @@ package grails.plugin.iugu
 import static org.junit.Assert.*
 import org.junit.*
 
+import grails.plugin.iugu.api.IuguApi
+import grails.plugin.iugu.api.IuguSubscriptionApi
+import grails.plugin.iugu.api.IuguCustomerApi
 
-class IuguSubscriptionTests {
+
+class IuguSubscriptionApiTests extends GroovyTestCase {
 
     static subscriptionTest
 
     @Before
     void setUp() {
-        Iugu.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
-        Iugu.test = true
+        IuguApi.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
+        IuguApi.test = true
     }
 
     @Test
-    void "Create an IuguSubscription with invalid attributes"() {
-        def subscription = IuguSubscription.create([
+    void "Create an IuguSubscriptionApi with invalid attributes"() {
+        def subscription = IuguSubscriptionApi.create([
             plan_identifier: "plano_basico",
             customer_id: "123",
             expires_at: (new Date() + 365).format("dd/MM/yyyy"),
@@ -35,14 +39,14 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Create an IuguSubscription with valid attributes"() {
-        def customer = IuguCustomer.create([
+    void "Create an IuguSubscriptionApi with valid attributes"() {
+        def customer = IuguCustomerApi.create([
             email: "email@email.com",
             name: "Nome do Cliente",
             notes: "Anotações Gerais"
         ])
 
-        def subscription = IuguSubscription.create([
+        def subscription = IuguSubscriptionApi.create([
             plan_identifier: "emotionme_basic",
             customer_id: customer.id,
             expires_at: (new Date() + 365).format("dd/MM/yyyy"),
@@ -64,9 +68,9 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Fetch an IuguSubscription"() {
+    void "Fetch an IuguSubscriptionApi"() {
         if (subscriptionTest?.id) {
-            def subscription = IuguSubscription.fetch(subscriptionTest?.id)
+            def subscription = IuguSubscriptionApi.fetch(subscriptionTest?.id)
 
             assertNotNull "There was a problem with the Rest call", subscription
             assertNull "${subscription.errors}", subscription.errors
@@ -78,12 +82,12 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Save an IuguSubscription"() {
+    void "Save an IuguSubscriptionApi"() {
         if (subscriptionTest?.id) {
             def subscription = subscriptionTest
 
             subscription.suspended = true
-            subscription = IuguSubscription.save(subscription.id, subscription)
+            subscription = IuguSubscriptionApi.save(subscription.id, subscription)
 
             assertNotNull "There was a problem with the Rest call", subscription
             assertNull "${subscription.errors}", subscription.errors
@@ -96,11 +100,11 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Activate an IuguSubscription"() {
+    void "Activate an IuguSubscriptionApi"() {
         if (subscriptionTest?.id) {
             def subscription = subscriptionTest
 
-            subscription = IuguSubscription.activate(subscriptionTest?.id)
+            subscription = IuguSubscriptionApi.activate(subscriptionTest?.id)
 
             assertNotNull "There was a problem with the Rest call", subscription
             assertNull "${subscription.errors}", subscription.errors
@@ -112,11 +116,11 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Suspend an IuguSubscription"() {
+    void "Suspend an IuguSubscriptionApi"() {
         if (subscriptionTest?.id) {
             def subscription = subscriptionTest
 
-            subscription = IuguSubscription.suspend(subscriptionTest?.id)
+            subscription = IuguSubscriptionApi.suspend(subscriptionTest?.id)
 
             assertNotNull "There was a problem with the Rest call", subscription
             assertNull "${subscription.errors}", subscription.errors
@@ -128,11 +132,11 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Change the Plan of an IuguSubscription"() {
+    void "Change the Plan of an IuguSubscriptionApi"() {
         if (subscriptionTest?.id) {
             def subscription = subscriptionTest
 
-            subscription = IuguSubscription.change_plan("emotionme_premium", subscriptionTest?.id)
+            subscription = IuguSubscriptionApi.change_plan("emotionme_premium", subscriptionTest?.id)
 
             assertNotNull "There was a problem with the Rest call", subscription
             assertNull "${subscription.errors}", subscription.errors
@@ -144,11 +148,11 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Add Credits to an IuguSubscription"() {
+    void "Add Credits to an IuguSubscriptionApi"() {
         if (subscriptionTest?.id) {
             def subscription = subscriptionTest
 
-            subscription = IuguSubscription.add_credits(subscriptionTest?.id, [
+            subscription = IuguSubscriptionApi.add_credits(subscriptionTest?.id, [
                 quantity: 12300
             ])
 
@@ -162,11 +166,11 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Remove Credits from an IuguSubscription"() {
+    void "Remove Credits from an IuguSubscriptionApi"() {
         if (subscriptionTest?.id) {
             def subscription = subscriptionTest
 
-            subscription = IuguSubscription.remove_credits(subscriptionTest?.id, [
+            subscription = IuguSubscriptionApi.remove_credits(subscriptionTest?.id, [
                 quantity: 12300
             ])
 
@@ -180,16 +184,16 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Search for an IuguSubscription without filter options"() {
-        def subscriptions = IuguSubscription.search()
+    void "Search for an IuguSubscriptionApi without filter options"() {
+        def subscriptions = IuguSubscriptionApi.search()
 
         assertNotNull "There was a problem with the Rest call", subscriptions
         assertNull "${subscriptions.errors}", subscriptions.errors
     }
 
     @Test
-    void "Search for an IuguSubscription and limit to 5 results"() {
-        def subscriptions = IuguSubscription.search([
+    void "Search for an IuguSubscriptionApi and limit to 5 results"() {
+        def subscriptions = IuguSubscriptionApi.search([
             limit: 5
         ])
 
@@ -199,11 +203,11 @@ class IuguSubscriptionTests {
     }
 
     @Test
-    void "Delete an IuguSubscription"() {
+    void "Delete an IuguSubscriptionApi"() {
         if (subscriptionTest?.id) {
-            def subscription = IuguSubscription.delete(subscriptionTest?.id)
+            def subscription = IuguSubscriptionApi.delete(subscriptionTest?.id)
 
-            IuguCustomer.delete(subscription.customer_id)
+            IuguCustomerApi.delete(subscription.customer_id)
 
             assertNotNull "There was a problem with the Rest call", subscription
             assertNull "${subscription.errors}", subscription.errors

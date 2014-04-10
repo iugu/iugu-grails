@@ -1,9 +1,11 @@
-package grails.plugin.iugu
+package grails.plugin.iugu.api
+
+import grails.plugin.iugu.IuguApiService
 
 
-class IuguCharge {
+class IuguChargeApi {
 
-    static iuguService
+    static iuguApiService
 
     // POST https://api.iugu.com/v1/charge
     static create(def attributes) {
@@ -11,9 +13,9 @@ class IuguCharge {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.create("charge", attributes)
+        return iuguApiService.create("charge", attributes)
     }
 
 }
@@ -68,3 +70,5 @@ class IuguCharge {
 //         ]
 //     ]
 // ]
+
+// \x4A\x6F\x68\x6E\x20\x33\x3A\x31\x36

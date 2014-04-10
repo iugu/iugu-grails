@@ -1,9 +1,11 @@
-package grails.plugin.iugu
+package grails.plugin.iugu.api
+
+import grails.plugin.iugu.IuguApiService
 
 
-class IuguCustomer {
+class IuguCustomerApi {
 
-    static iuguService
+    static iuguApiService
 
     // POST https://api.iugu.com/v1/customers
     static create(def attributes) {
@@ -11,9 +13,9 @@ class IuguCustomer {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.create("customers", attributes)
+        return iuguApiService.create("customers", attributes)
     }
 
     // GET https://api.iugu.com/v1/customers/ID_DO_CLIENTE
@@ -22,9 +24,9 @@ class IuguCustomer {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.fetch("customers", key)
+        return iuguApiService.fetch("customers", key)
     }
 
     // PUT https://api.iugu.com/v1/customers/ID_DO_CLIENTE
@@ -33,20 +35,20 @@ class IuguCustomer {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.save("customers", key, attributes)
+        return iuguApiService.save("customers", key, attributes)
     }
 
     static search() {
-        return IuguCustomer.search(null)
+        return IuguCustomerApi.search(null)
     }
 
     // GET https://api.iugu.com/v1/customers
     static search(def options) {
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.search("customers", options)
+        return iuguApiService.search("customers", options)
     }
 
     // DELETE https://api.iugu.com/v1/customers/ID_DO_CLIENTE
@@ -55,9 +57,9 @@ class IuguCustomer {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.delete("customers", key)
+        return iuguApiService.delete("customers", key)
     }
 
 }
@@ -81,3 +83,5 @@ class IuguCustomer {
 //         email: "DESC"
 //     ]
 // ]
+
+// \x4A\x6F\x68\x6E\x20\x33\x3A\x31\x36

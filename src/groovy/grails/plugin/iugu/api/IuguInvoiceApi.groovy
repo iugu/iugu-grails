@@ -1,9 +1,11 @@
-package grails.plugin.iugu
+package grails.plugin.iugu.api
+
+import grails.plugin.iugu.IuguApiService
 
 
-class IuguInvoice {
+class IuguInvoiceApi {
 
-    static iuguService
+    static iuguApiService
 
     // POST https://api.iugu.com/v1/invoices
     static create(def attributes) {
@@ -11,9 +13,9 @@ class IuguInvoice {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.create("invoices", attributes)
+        return iuguApiService.create("invoices", attributes)
     }
 
     // GET https://api.iugu.com/v1/invoices/ID_DA_FATURA
@@ -22,9 +24,9 @@ class IuguInvoice {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.fetch("invoices", key)
+        return iuguApiService.fetch("invoices", key)
     }
 
     // PUT https://api.iugu.com/v1/invoices/ID_DA_FATURA
@@ -33,9 +35,9 @@ class IuguInvoice {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.save("invoices", key, attributes)
+        return iuguApiService.save("invoices", key, attributes)
     }
 
     // PUT https://api.iugu.com/v1/invoices/ID_DA_FATURA/cancel
@@ -44,9 +46,9 @@ class IuguInvoice {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.apiRequest("put", "invoices", "${key}/cancel", null, null)
+        return iuguApiService.apiRequest("put", "invoices", "${key}/cancel", null, null)
     }
 
     // POST https://api.iugu.com/v1/invoices/ID_DA_FATURA/refund
@@ -55,20 +57,20 @@ class IuguInvoice {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.apiRequest("post", "invoices", "${key}/refund", null, null)
+        return iuguApiService.apiRequest("post", "invoices", "${key}/refund", null, null)
     }
 
     static search() {
-        return IuguInvoice.search(null)
+        return IuguInvoiceApi.search(null)
     }
 
     // GET https://api.iugu.com/v1/invoices
     static search(def options) {
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.search("invoices", options)
+        return iuguApiService.search("invoices", options)
     }
 
     // DELETE https://api.iugu.com/v1/invoices/ID_DA_FATURA
@@ -77,9 +79,9 @@ class IuguInvoice {
             return false
         }
 
-        iuguService = iuguService ?: new IuguService()
+        iuguApiService = iuguApiService ?: new IuguApiService()
 
-        return iuguService.delete("invoices", key)
+        return iuguApiService.delete("invoices", key)
     }
 
 }
@@ -124,3 +126,5 @@ class IuguInvoice {
 //         email: "DESC"
 //     ]
 // ]
+
+// \x4A\x6F\x68\x6E\x20\x33\x3A\x31\x36

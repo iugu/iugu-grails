@@ -3,20 +3,23 @@ package grails.plugin.iugu
 import static org.junit.Assert.*
 import org.junit.*
 
+import grails.plugin.iugu.api.IuguApi
+import grails.plugin.iugu.api.IuguInvoiceApi
 
-class IuguInvoiceTests {
+
+class IuguInvoiceApiTests extends GroovyTestCase {
 
     static invoiceTest
 
     @Before
     void setUp() {
-        Iugu.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
-        Iugu.test = true
+        IuguApi.apiKey = "98f7ca6cc1b969430492d0c8378fc4ce"
+        IuguApi.test = true
     }
 
     @Test
-    void "Create an IuguInvoice with invalid attributes"() {
-        def invoice = IuguInvoice.create([
+    void "Create an IuguInvoiceApi with invalid attributes"() {
+        def invoice = IuguInvoiceApi.create([
             email: "teste",
             due_date: (new Date() + 5).format("dd/MM/yyyy"),
             items: [
@@ -33,8 +36,8 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Create an IuguInvoice with valid attributes"() {
-        def invoice = IuguInvoice.create([
+    void "Create an IuguInvoiceApi with valid attributes"() {
+        def invoice = IuguInvoiceApi.create([
             email: "teste@teste.com",
             due_date: (new Date() + 5).format("dd/MM/yyyy"),
             items: [
@@ -54,9 +57,9 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Fetch an IuguInvoice"() {
+    void "Fetch an IuguInvoiceApi"() {
         if (invoiceTest?.id) {
-            def invoice = IuguInvoice.fetch(invoiceTest?.id)
+            def invoice = IuguInvoiceApi.fetch(invoiceTest?.id)
 
             assertNotNull "There was a problem with the Rest call", invoice
             assertNull "${invoice.errors}", invoice.errors
@@ -68,12 +71,12 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Save an IuguInvoice"() {
+    void "Save an IuguInvoiceApi"() {
         if (invoiceTest?.id) {
             def invoice = invoiceTest
 
             invoice.status = "expired"
-            invoice = IuguInvoice.save(invoice.id, invoice)
+            invoice = IuguInvoiceApi.save(invoice.id, invoice)
 
             assertNotNull "There was a problem with the Rest call", invoice
             assertNull "${invoice.errors}", invoice.errors
@@ -86,14 +89,14 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Cancel an IuguInvoice"() {
+    void "Cancel an IuguInvoiceApi"() {
         if (invoiceTest?.id) {
             def invoice = invoiceTest
 
             invoice.status = "pending"
-            IuguInvoice.save(invoice.id, invoice)
+            IuguInvoiceApi.save(invoice.id, invoice)
 
-            invoice = IuguInvoice.cancel(invoiceTest?.id)
+            invoice = IuguInvoiceApi.cancel(invoiceTest?.id)
 
             assertNotNull "There was a problem with the Rest call", invoice
             assertNull "${invoice.errors}", invoice.errors
@@ -105,14 +108,14 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Refund an IuguInvoice"() {
+    void "Refund an IuguInvoiceApi"() {
         if (invoiceTest?.id) {
             def invoice = invoiceTest
 
             invoice.status = "paid"
-            IuguInvoice.save(invoice.id, invoice)
+            IuguInvoiceApi.save(invoice.id, invoice)
 
-            invoice = IuguInvoice.refund(invoiceTest?.id)
+            invoice = IuguInvoiceApi.refund(invoiceTest?.id)
 
             assertNotNull "There was a problem with the Rest call", invoice
             assertNull "${invoice.errors}", invoice.errors
@@ -123,16 +126,16 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Search for an IuguInvoice without filter options"() {
-        def invoices = IuguInvoice.search()
+    void "Search for an IuguInvoiceApi without filter options"() {
+        def invoices = IuguInvoiceApi.search()
 
         assertNotNull "There was a problem with the Rest call", invoices
         assertNull "${invoices.errors}", invoices.errors
     }
 
     @Test
-    void "Search for an IuguInvoice and limit to 5 results"() {
-        def invoices = IuguInvoice.search([
+    void "Search for an IuguInvoiceApi and limit to 5 results"() {
+        def invoices = IuguInvoiceApi.search([
             limit: 5
         ])
 
@@ -142,9 +145,9 @@ class IuguInvoiceTests {
     }
 
     @Test
-    void "Delete an IuguInvoice"() {
+    void "Delete an IuguInvoiceApi"() {
         if (invoiceTest?.id) {
-            def invoice = IuguInvoice.delete(invoiceTest?.id)
+            def invoice = IuguInvoiceApi.delete(invoiceTest?.id)
 
             assertNotNull "There was a problem with the Rest call", invoice
             assertNull "${invoice.errors}", invoice.errors
