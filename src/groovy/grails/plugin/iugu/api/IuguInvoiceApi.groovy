@@ -84,6 +84,42 @@ class IuguInvoiceApi {
         return iuguApiService.delete("invoices", key)
     }
 
+    /**
+     * Format Invoice object to model
+     * @param invoice
+     * @return
+     */
+    static formatInvoice(def invoice) {
+        def formatedInvoice
+
+        if (invoice && !invoice.errors && invoice.id) {
+            formatedInvoice = [
+                // iuguCreatedAt: IuguApi.formatDate(invoice.created_at),
+                iuguUpdatedAt: IuguApi.formatDate(invoice.updated_at),
+                iuguId: invoice.id,
+                iuguDueDate: invoice.due_date,
+                iuguCurrency: invoice.currency,
+                iuguCustomerId: invoice.customer_id,
+                iuguDiscountCents: invoice.discount_cents,
+                iuguEmail: invoice.email,
+                iuguExpirationUrl: invoice.expiration_url,
+                iuguItemsTotalCents: invoice.items_total_cents,
+                iuguNotificationUrl: invoice.notification_url,
+                iuguReturnUrl: invoice.return_url,
+                iuguStatus: invoice.status,
+                iuguTaxCents: invoice.tax_cents,
+                iuguTotalCents: invoice.total_cents,
+                iuguSecureId: invoice.secure_id,
+                iuguSecureUrl: invoice.secure_url,
+                iuguUserId: invoice.user_id,
+                iuguTotal: invoice.total
+                // TODO: format Invoice Item and Variable and Log
+            ]
+        }
+
+        return formatedInvoice
+    }
+
 }
 
 // Invoice.create

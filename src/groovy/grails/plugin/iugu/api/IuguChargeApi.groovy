@@ -18,6 +18,26 @@ class IuguChargeApi {
         return iuguApiService.create("charge", attributes)
     }
 
+    /**
+     * Format Charge object to model
+     * @param charge
+     * @return
+     */
+    static formatCharge(def charge) {
+        def formatedCharge
+
+        if (charge && !charge.errors && charge.id) {
+            formatedCharge = [
+                iuguSuccess: charge.success,
+                iuguMessage: charge.message,
+                iuguUrl: charge.url,
+                invoice_id: charge.invoice_id
+            ]
+        }
+
+        return formatedCharge
+    }
+
 }
 
 // Charge.create, CartaoCredito

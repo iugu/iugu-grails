@@ -120,7 +120,7 @@ class IuguSubscriptionApi {
 
     /**
      * Format Subscription object to model
-     * @param customer
+     * @param subscription
      * @return
      */
     static formatSubscription(def subscription) {

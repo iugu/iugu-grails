@@ -65,7 +65,7 @@ class IuguPaymentMethodApi {
 
     /**
      * Format PaymentMethod object to model
-     * @param customer
+     * @param paymentMethod
      * @return
      */
     static formatPaymentMethod(def paymentMethod) {
