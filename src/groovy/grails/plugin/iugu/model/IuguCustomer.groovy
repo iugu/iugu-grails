@@ -12,6 +12,9 @@ abstract class IuguCustomer {
     String iuguEmail
     String iuguName
     String iuguNotes
+    String iuguDefaultPaymentMethodId
+
+    // static hasMany = [iuguPaymentMethods: IuguPaymentMethod]
 
     static constraints = {
         iuguCreatedAt nullable: true, blank: false
@@ -21,6 +24,7 @@ abstract class IuguCustomer {
         iuguEmail nullable: true, blank: false
         iuguName nullable: true, blank: false
         iuguNotes nullable: true, blank: false
+        iuguDefaultPaymentMethodId nullable: true, blank: false
     }
 
     def beforeInsert() {

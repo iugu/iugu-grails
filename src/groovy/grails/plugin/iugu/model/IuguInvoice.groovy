@@ -31,9 +31,9 @@ abstract class IuguInvoice {
     String iuguTotal
 
     // static hasMany = [
-    //     iuguItems: IuguInvoiceItem, 
-    //     iuguVariables: IuguInvoiceVariable, 
-    //     iuguLogs: IuguInvoiceLog, 
+    //     iuguItems: IuguInvoiceItem,
+    //     iuguVariables: IuguInvoiceVariable,
+    //     iuguLogs: IuguInvoiceLog
     // ]
 
     static constraints = {

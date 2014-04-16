@@ -78,7 +78,8 @@ class IuguCustomerApi {
                 iuguId: customer.id,
                 iuguEmail: customer.email,
                 iuguName: customer.name,
-                iuguNotes: customer.notes
+                iuguNotes: customer.notes,
+                iuguDefaultPaymentMethodId: customer.iuguDefaultPaymentMethodId
             ]
         }
 

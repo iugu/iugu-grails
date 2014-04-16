@@ -1,7 +1,9 @@
 package grails.plugin.iugu.model
 
-// import grails.plugin.iugu.model.IuguSubscriptionSubitem
+// import grails.plugin.iugu.model.IuguSubscriptionFeature
 // import grails.plugin.iugu.model.IuguSubscriptionLog
+// import grails.plugin.iugu.model.IuguSubscriptionRecentInvoice
+// import grails.plugin.iugu.model.IuguSubscriptionSubitem
 
 
 abstract class IuguSubscription {
@@ -19,13 +21,10 @@ abstract class IuguSubscription {
     String iuguPlanIdentifier
     String iuguPriceCents
     String iuguCurrency
-    String iuguFeaturesFeatName
-    String iuguFeaturesFeatValue
     String iuguCustomerName
     String iuguCustomerEmail
     String iuguCreditsMin
     String iuguCreditsCycle
-    String iuguCustomerId
     String iuguPlanName
     String iuguCustomerRef
     String iuguPlanRef
@@ -33,11 +32,12 @@ abstract class IuguSubscription {
     String iuguInTrial
     String iuguCredits
     String iuguCreditsBased
-    String iuguRecentInvoices
 
     // static hasMany = [
-    //     iuguSubitems: IuguSubscriptionSubitem, 
-    //     iuguLogs: IuguSubscriptionLog, 
+    //     iuguFeatures: IuguSubscriptionFeature,
+    //     iuguSubitems: IuguSubscriptionSubitem,
+    //     iuguRecentInvoices: IuguSubscriptionRecentInvoice,
+    //     iuguLogs: IuguSubscriptionLog
     // ]
 
     static constraints = {
@@ -52,13 +52,10 @@ abstract class IuguSubscription {
         iuguPlanIdentifier nullable: true, blank: false
         iuguPriceCents nullable: true, blank: false
         iuguCurrency nullable: true, blank: false
-        iuguFeaturesFeatName nullable: true, blank: false
-        iuguFeaturesFeatValue nullable: true, blank: false
         iuguCustomerName nullable: true, blank: false
         iuguCustomerEmail nullable: true, blank: false
         iuguCreditsMin nullable: true, blank: false
         iuguCreditsCycle nullable: true, blank: false
-        iuguCustomerId nullable: true, blank: false
         iuguPlanName nullable: true, blank: false
         iuguCustomerRef nullable: true, blank: false
         iuguPlanRef nullable: true, blank: false
@@ -66,7 +63,6 @@ abstract class IuguSubscription {
         iuguInTrial nullable: true, blank: false
         iuguCredits nullable: true, blank: false
         iuguCreditsBased nullable: true, blank: false
-        iuguRecentInvoices nullable: true, blank: false
     }
 
     def beforeInsert() {

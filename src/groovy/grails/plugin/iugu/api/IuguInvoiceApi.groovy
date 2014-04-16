@@ -113,11 +113,84 @@ class IuguInvoiceApi {
                 iuguSecureUrl: invoice.secure_url,
                 iuguUserId: invoice.user_id,
                 iuguTotal: invoice.total
-                // TODO: format Invoice Item and Variable and Log
             ]
         }
 
         return formatedInvoice
+    }
+
+    /**
+     * Format InvoiceItems object to model
+     * @param invoice
+     * @return
+     */
+    static formatInvoiceItems(def invoice) {
+        def formatedInvoiceItems
+
+        if (invoice && !invoice.errors && invoice.id) {
+            formatedInvoiceItems = []
+
+            invoice?.items.each {
+                formatedInvoiceItems << [
+                    iuguCreatedAt: IuguApi.formatDate(it.created_at),
+                    iuguUpdatedAt: IuguApi.formatDate(it.updated_at),
+                    iuguId: it.id,
+                    iuguDescription: it.description,
+                    iuguPriceCents: it.price_cents,
+                    iuguQuantity: it.quantity,
+                    iuguPrice: it.price
+                ]
+            }
+        }
+
+        return formatedInvoiceItems
+    }
+
+    /**
+     * Format InvoiceVariables object to model
+     * @param invoice
+     * @return
+     */
+    static formatInvoiceVariables(def invoice) {
+        def formatedInvoiceVariables
+
+        if (invoice && !invoice.errors && invoice.id) {
+            formatedInvoiceVariables = []
+
+            invoice?.variables.each {
+                formatedInvoiceVariables << [
+                    iuguId: it.id,
+                    iuguDescription: it.description,
+                    iuguNotes: it.notes
+                ]
+            }
+        }
+
+        return formatedInvoiceVariables
+    }
+
+    /**
+     * Format InvoiceLogs object to model
+     * @param invoice
+     * @return
+     */
+    static formatInvoiceLogs(def invoice) {
+        def formatedInvoiceLogs
+
+        if (invoice && !invoice.errors && invoice.id) {
+            formatedInvoiceLogs = []
+
+            invoice?.logs.each {
+                formatedInvoiceLogs << [
+                    iuguCreatedAt: IuguApi.formatDate(it.created_at),
+                    iuguId: it.id,
+                    iuguDescription: it.description,
+                    iuguNotes: it.notes
+                ]
+            }
+        }
+
+        return formatedInvoiceLogs
     }
 
 }

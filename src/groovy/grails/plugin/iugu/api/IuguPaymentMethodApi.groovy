@@ -77,6 +77,7 @@ class IuguPaymentMethodApi {
                 iuguDescription: paymentMethod.description,
                 iuguItemType: paymentMethod.item_type,
                 iuguDataToken: paymentMethod?.data?.token,
+                iuguDataHolderName: paymentMethod?.data?.holder_name,
                 iuguDataDisplayNumber: paymentMethod?.data?.display_number,
                 iuguDataBrand: paymentMethod?.data?.brand
             ]

@@ -138,8 +138,6 @@ class IuguSubscriptionApi {
                 iuguPlanIdentifier: subscription.plan_identifier,
                 iuguPriceCents: subscription.price_cents,
                 iuguCurrency: subscription.currency,
-                iuguFeaturesFeatName: subscription.features?.feat?.name,
-                iuguFeaturesFeatValue: subscription.features?.feat?.value,
                 iuguCustomerName: subscription.customer_name,
                 iuguCustomerEmail: subscription.customer_email,
                 iuguCreditsMin: subscription.credits_min,
@@ -152,12 +150,106 @@ class IuguSubscriptionApi {
                 iuguInTrial: subscription.in_trial,
                 iuguCredits: subscription.credits,
                 iuguCreditsBased: subscription.credits_based
-                // iuguRecentInvoices: subscription.recent_invoices
-                // TODO: format Subscription Subitem and Log
             ]
         }
 
         return formatedSubscription
+    }
+
+    /**
+     * Format formatSubscriptionFeatures object to model
+     * @param subscription
+     * @return
+     */
+    static formatSubscriptionFeatures(def subscription) {
+        def formatedSubscriptionFeatures
+
+        if (subscription && !subscription.errors && subscription.id) {
+            formatedSubscriptionFeatures = []
+
+            subscription?.features.each {
+                formatedSubscriptionFeatures << [
+                    iuguName: it.feat?.name,
+                    iuguValue: it.feat?.value
+                ]
+            }
+        }
+
+        return formatedSubscriptionFeatures
+    }
+
+    /**
+     * Format SubscriptionSubitems object to model
+     * @param subscription
+     * @return
+     */
+    static formatSubscriptionSubitems(def subscription) {
+        def formatedSubscriptionSubitems
+
+        if (subscription && !subscription.errors && subscription.id) {
+            formatedSubscriptionSubitems = []
+
+            subscription?.subitems.each {
+                formatedSubscriptionSubitems << [
+                    iuguId: it.id,
+                    iuguDescription: it.description,
+                    iuguQuantity: it.quantity,
+                    iuguPriceCents: it.price_cents,
+                    iuguPrice: it.price,
+                    iuguTotal: it.total
+                ]
+            }
+        }
+
+        return formatedSubscriptionSubitems
+    }
+
+    /**
+     * Format SubscriptionSubitems object to model
+     * @param subscription
+     * @return
+     */
+    static formatSubscriptionRecentInvoices(def subscription) {
+        def formatedSubscriptionRecentInvoices
+
+        if (subscription && !subscription.errors && subscription.id) {
+            formatedSubscriptionRecentInvoices = []
+
+            subscription?.recent_invoices.each {
+                formatedSubscriptionRecentInvoices << [
+                    iuguDueDate: IuguApi.formatDate(it.due_date),
+                    iuguId: it.id,
+                    iuguTotal: it.total,
+                    iuguStatus: it.status
+                ]
+            }
+        }
+
+        return formatedSubscriptionRecentInvoices
+    }
+
+    /**
+     * Format SubscriptionLogs object to model
+     * @param subscription
+     * @return
+     */
+    static formatSubscriptionLogs(def subscription) {
+        def formatedSubscriptionLogs
+
+        if (subscription && !subscription.errors && subscription.id) {
+            formatedSubscriptionLogs = []
+
+            subscription?.logs.each {
+                formatedSubscriptionLogs << [
+                    iuguCreatedAt: IuguApi.formatDate(it.created_at),
+                    iuguId: it.id,
+                    iuguDescription: it.description,
+                    iuguNotes: it.notes
+                ]
+            }
+        }
+
+        return formatedSubscriptionLogs
     }
 
 }
