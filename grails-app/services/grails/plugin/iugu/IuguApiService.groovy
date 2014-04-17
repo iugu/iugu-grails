@@ -3,12 +3,11 @@ package grails.plugin.iugu
 import grails.util.Environment
 import groovyx.net.http.ContentType
 
+import grails.plugin.iugu.IuguApiRequest
 import grails.plugin.iugu.api.IuguApi
 
 
 class IuguApiService {
-
-    def transactional = false
 
     def create(def method, def attributes) {
         return apiRequest("post", method, null, attributes, null)
@@ -32,7 +31,10 @@ class IuguApiService {
 
     def apiRequest(def verb, def method, def key, def attributes, def options) {
         def result
-        def logMessage = "${verb.toUpperCase()}: ${IuguApi.endpoint}/${IuguApi.apiVersion}/${method}" + (key ? "/${key}" : "") + (attributes ? "\nBODY: ${attributes}" : "")
+        def logMessage = "${verb.toUpperCase()}: ${IuguApi.endpoint}/${IuguApi.apiVersion}/${method}" +
+            (key ? "/${key}" : "") +
+            (options ? "\nQUERY: ${options}" : "") +
+            (attributes ? "\nBODY: ${attributes}" : "")
 
         try {
             withRest(uri: IuguApi.endpoint, contentType: ContentType.JSON) {
@@ -65,6 +67,13 @@ class IuguApiService {
             log.error(logMessage, e)
         }
         finally {
+            new IuguApiRequest(
+                iuguResquest: "${verb.toUpperCase()}: ${IuguApi.endpoint}/${IuguApi.apiVersion}/${method}" + (key ? "/${key}" : ""),
+                iuguQuery: options ? "${options}" : null,
+                iuguBody: attributes ? "${attributes}" : null,
+                iuguResult: result ? "${result}" : null
+            ).save()
+
             return result
         }
     }

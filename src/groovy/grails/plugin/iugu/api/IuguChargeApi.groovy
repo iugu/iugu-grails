@@ -26,12 +26,12 @@ class IuguChargeApi {
     static formatCharge(def charge) {
         def formatedCharge
 
-        if (charge && !charge.errors && charge.id) {
+        if (charge && !charge.errors?.size() && charge.success == true) {
             formatedCharge = [
                 iuguSuccess: charge.success,
                 iuguMessage: charge.message,
                 iuguUrl: charge.url,
-                invoice_id: charge.invoice_id
+                iuguInvoiceId: charge.invoice_id
             ]
         }
 

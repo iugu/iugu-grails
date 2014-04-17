@@ -1,6 +1,6 @@
 package grails.plugin.iugu.model
 
-import grails.plugin.iugu.model.IuguInvoice
+// import grails.plugin.iugu.model.IuguInvoice
 
 
 abstract class IuguCharge {
@@ -12,7 +12,7 @@ abstract class IuguCharge {
     String iuguMessage
     String iuguUrl
 
-    IuguInvoice iuguInvoice
+    // IuguInvoice iuguInvoice
 
     static constraints = {
         iuguSuccess nullable: true, blank: false
