@@ -94,7 +94,7 @@ class IuguInvoiceApi {
 
         if (invoice && !invoice.errors && invoice.id) {
             formatedInvoice = [
-                // iuguCreatedAt: IuguApi.formatDate(invoice.created_at),
+                iuguCreatedAt: IuguApi.formatDate(invoice.created_at),
                 iuguUpdatedAt: IuguApi.formatDate(invoice.updated_at),
                 iuguId: invoice.id,
                 iuguDueDate: invoice.due_date,
@@ -160,8 +160,8 @@ class IuguInvoiceApi {
             invoice?.variables.each {
                 formatedInvoiceVariables << [
                     iuguId: it.id,
-                    iuguDescription: it.description,
-                    iuguNotes: it.notes
+                    iuguVariable: it.variable,
+                    iuguValue: it.value
                 ]
             }
         }

@@ -9,15 +9,15 @@ abstract class IuguInvoiceVariable {
     Date lastUpdated
 
     String iuguId
-    String iuguDescription
-    String iuguNotes
+    String iuguVariable
+    String iuguValue
 
     // static belongsTo = [iuguInvoice: IuguInvoice]
 
     static constraints = {
         iuguId nullable: true, blank: false
-        iuguDescription nullable: true, blank: false
-        iuguNotes nullable: true, blank: false
+        iuguVariable nullable: true, blank: false
+        iuguValue nullable: true, blank: false
     }
 
     def beforeInsert() {
